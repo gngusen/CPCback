@@ -1,5 +1,7 @@
 const express = require('express');
 const cloud_db = require('mysql');  //plugin connecting to mysql
+var cors = require('cors');
+
 
 const bodyparser = require('body-parser');
 const projectRoutes = require('./routes/project');
@@ -7,15 +9,19 @@ const studentRoutes = require('./routes/student');
 const teacherRoutes = require('./routes/teacher');
 const app = express();
 
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 
-app.use(function(req, res, next){
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use(function(req, res, next){
+//     res.header("Access-Control-Allow-Origin", "http://localhost:4200/");
+//     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type,Authorization, Accept");
+//     next();
+// });
 
 
 app.use('/project', projectRoutes);
