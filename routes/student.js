@@ -33,7 +33,7 @@ router.post('/login', (req, res) => {
             return  res.status(409).json({'message': err.message});
         }
         else if(result){
-            const v = result[0].first_name;
+            const v = result;
             console.log(v);
            return  res.status(200).json({'message': v  });
     }
