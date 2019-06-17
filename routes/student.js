@@ -22,4 +22,24 @@ router.post('/addstudent', (req, res) => {
     });
 });});
 
+router.post('/login', (req, res) => {
+    const email = req.body.email;
+    let sql = `SELECT * FROM student WHERE email = "`+email+`"`;   //name should be exactly as table name
+
+    conn.cloudsql.getConnection(function(err, connection){
+        connection.query(sql, (err, result) => {
+        if(err){
+            console.log(err.message);
+            return  res.status(409).json({'message': err.message});
+        }
+        else if(result){
+            const v = result[0].first_name;
+            console.log(v);
+           return  res.status(200).json({'message': v  });
+    }
+
+    });
+});});
+
+
 module.exports=router;
